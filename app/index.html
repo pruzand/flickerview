@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Dojo Flicker View</title>
+<!--
+	<script type="text/javascript" src="../../dojox/mobile/deviceTheme.js"></script>
+	<script type="text/javascript" src="../../dojo/dojo.js" data-dojo-config="async: true, mblAlwaysHideAddressBar: true"></script>
+-->
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojox/mobile/deviceTheme.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojo/dojo.js" data-dojo-config="async: true, mblAlwaysHideAddressBar: true"></script>
+
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
+
+	<script>
+		// Load the widget parser and mobile base
+		require([
+			"dojox/mobile/parser",
+			"dojox/mobile/ScrollableView",
+			"dojox/mobile/Heading",
+			"dojox/mobile/EdgeToEdgeList",
+			"dojox/mobile/ListItem",
+			"dojox/mobile/View",
+			"dojox/mobile/RoundRect",
+			"dojox/mobile/FormLayout",
+			"dojox/mobile/TextBox",
+			"dojox/mobile/Switch",
+			"dijit/form/DataList",
+			"dojox/mobile/ComboBox",
+			"dojox/mobile/Button",
+			"dijit/form/Form",
+			"dojo/on",
+			"dojo/domReady!"
+		], function (parser) {
+			// Parse the page for widgets
+			parser.parse();
+		});
+	</script>
+
+</head>
+<body style="visibility:hidden;">
+<datalist>
+	<select data-dojo-type="dijit/form/DataList" data-dojo-props='id:"languages"'>
+		<option selected value="en-us">English</option>
+		<option value="fr-fr">French</option>
+		<option value="de-de">German</option>
+		<option value="it-it">Italian</option>
+		<option value="ko-kr">Korean</option>
+		<option value="pt-br">Portuguese (Brazilian)</option>
+		<option value="es-us">Spanish</option>
+		<option value="zh-hk">Traditional Chinese (Hong Kong)</option>
+	</select>
+</datalist>
+<!-- Photos view -->
+<div id="photos"
+	 data-dojo-type="dojox/mobile/ScrollableView"
+	 data-dojo-props="selected: true">
+	<div data-dojo-type="dojox/mobile/Heading"
+		 data-dojo-props="fixed: 'top', label: 'Recent Uploads tagged famous and bridge'" class="troncatedText">
+				<span data-dojo-type="dojox/mobile/ToolBarButton"
+					  data-dojo-props="icon: 'images/settings.png', moveTo:'settings', transitionDir:'-1', transition:'none'"
+					  style="float:left;"
+					  class="listCtrl"></span>
+				<span data-dojo-type="dojox/mobile/ToolBarButton"
+					  data-dojo-props="icon: 'images/refresh.png'"
+					  style="float:right;"
+					  class="listCtrl"></span>
+	</div>
+	<div data-dojo-type="dojox/mobile/EdgeToEdgeList">
+		<div data-dojo-type="dojox/mobile/ListItem" class="photoListItem" data-dojo-props="moveTo:'details', transition:'slide'">
+			<img src="images/mock/dummy_ggb.jpg" width="80px" height="80px" alt="Title" style="float:left;"/>
+
+			<div class="photoSummary">
+				<div class="photoTitle">Golden Gate Bridge HDR</div>
+				<div class="publishedTime" data-dojo-time="2013-12-13">2013-06-20T23:34:21Z</div>
+				<div class="author troncatedText">nobody@flickr.com (LeAnn Yeates2011)</div>
+			</div>
+			<div class="summaryClear"></div>
+		</div>
+		<div data-dojo-type="dojox/mobile/ListItem" class="photoListItem" data-dojo-props="moveTo:'details', transition:'slide'">
+			<img src="images/mock/dummy_pda.jpg" width="80px" height="80px" alt="Title" style="float:left;"/>
+			<div class="photoSummary">
+				<div class="photoTitle">Singapore_30.jpg</div>
+				<div class="publishedTime" data-dojo-time="2013-12-13">2013-08-26T23:55:44Z</div>
+				<div class="author troncatedText">nobody@flickr.com (Phil_Bird)</div>
+			</div>
+			<div class="summaryClear"></div>
+		</div>
+	</div>
+</div>
+
+<!-- Settings view -->
+<div id="settings"
+	 data-dojo-type="dojox/mobile/ScrollableView">
+	<div data-dojo-type="dojox/mobile/Heading"
+		 data-dojo-props="fixed: 'top', label: 'Settings'">
+		  <span data-dojo-type="dojox/mobile/ToolBarButton"
+				data-dojo-props="label:'Done', moveTo:'photos', transition:'none'" style="float:right;"></span>
+	</div>
+	<div data-dojo-type="dojox/mobile/RoundRect">
+		<table style="margin: 0 auto;" cellspacing="10">
+			<tr>
+				<td>
+					<label for="tag">Tags</label>
+				</td>
+				<td>
+					<input type="text" id="tag" name="tag" data-dojo-type="dojox/mobile/TextBox"
+						   data-dojo-props="value:'famous bridge'" style="float:right;text-overflow: ellipsis;" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="mode">Selection</label>
+				</td>
+				<td>
+					<input type="checkbox" id="mode" name="mode" data-dojo-type="dojox/mobile/Switch"
+						   value="on" leftLabel="All" rightLabel="Any" style="float:right;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="lang">Feed language</label>
+				</td>
+				<td>
+					<input  id="lang" name="lang"  data-dojo-type="dojox/mobile/ComboBox"
+							data-dojo-props="value:'English', list:'languages'" style="float:right;"/>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<!-- details view -->
+<div id="details"
+	 data-dojo-type="dojox/mobile/ScrollableView">
+	<div data-dojo-type="dojox/mobile/Heading"
+		 data-dojo-props="fixed: 'top', label: 'Golden Gate Bridge HDR'">
+		  <span data-dojo-type="dojox/mobile/ToolBarButton"
+				data-dojo-props="label:'Back', moveTo:'photos', transition:'slide', transitionDir:'-1'" style="float:left;"></span>
+	</div>
+	<div data-dojo-type="dojox/mobile/RoundRect">
+		<p><a href="http://www.flickr.com/people/dewynter/">ILYA GENKIN / GENKIN.ORG</a> posted a photo:</p> <p><a href="http://www.flickr.com/photos/dewynter/9599939397/" title="The Sydney City CBD from Kirribilli, Sydney, NSW, Australia"><img src="http://farm3.staticflickr.com/2893/9599939397_4bab7a4aa8_m.jpg" width="240" height="240" alt="The Sydney City CBD from Kirribilli, Sydney, NSW, Australia" /></a></p> <p><b>The Sydney City CBD from Kirribilli, Sydney, NSW, Australia</b><br /> <br /> More images: <a href="http://www.genkin.org/cgi-bin/browse.pl/australia/sydney/city/" rel="nofollow">Sydney City Stock Images</a> | <a href="http://www.genkin.org/gallery/australia/sydney/" rel="nofollow">Sydney Stock Images</a> | <a href="http://www.genkin.org/gallery/australia/" rel="nofollow">Australia Stock Images</a> | <a href="http://www.genkin.org" rel="nofollow">Travel Stock Photography</a><br /> <br /> To receive latest updates simply <a href="http://twitter.com/igenkin" rel="nofollow">follow me on Twitter</a>.<br /> <br /> © Ilya Genkin<br /> <a href="http://www.genkin.org" rel="nofollow">Fine Art Landscape, Travel and Stock Photography</a><br /> <a href="http://www.genkin.org/blog" rel="nofollow">Travel and Landscape Photography Blog</a><br /> <br /> Note: <i>My images are posted here for your personal<br /> viewing pleasure only. All Rights are Reserved. Please<br /> contact me through </i><a href="http://www.genkin.org" rel="nofollow">my web site</a><i> if you are interested<br /> in using this image for an reason, or if you would like to <br /> purchase a photographic print.<br /> Thank you!</i></p>
+	</div>
+</div>
+</body>
+</html>
