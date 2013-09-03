@@ -4,16 +4,36 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<title>Dojo Flicker View</title>
-	<script type="text/javascript" src="../../dojox/mobile/deviceTheme.js"></script>
-	<script type="text/javascript" src="../../dojo/dojo.js" data-dojo-config="async: true, mblAlwaysHideAddressBar: true"></script>
 
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="pragma" content="no-cache">
+
+	<title>Dojo Flicker View</title>
 	<link rel="stylesheet" type="text/css" href="styles/style.css">
+
+	<script type="text/javascript" src="../../dojox/mobile/deviceTheme.js"></script>
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true,
+			isDebug: true,
+			baseUrl: './',
+			parseOnLoad: false,
+			mblAlwaysHideAddressBar: true,
+			packages: [{
+				name: "flickerview",
+				location: "js/flickerview"
+			}]
+		};
+	</script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojo/dojo.js"></script>
 
 	<script>
 		// Load the widget parser and mobile base
 		require([
 			"dojox/mobile/parser",
+			"flickerview/SearchView",
+			"flickerview/SettingsView",
+			"flickerview/DetailsView",
 			"dojox/mobile/ScrollableView",
 			"dojox/mobile/Heading",
 			"dojox/mobile/EdgeToEdgeList",
@@ -49,9 +69,10 @@
 		<option value="zh-hk">Traditional Chinese (Hong Kong)</option>
 	</select>
 </datalist>
-<!-- Photos view -->
-<div id="photos"
-	 data-dojo-type="dojox/mobile/ScrollableView"
+
+<!-- Search view -->
+<div id="search"
+	 data-dojo-type="flickerview/SearchView"
 	 data-dojo-props="selected: true">
 	<div data-dojo-type="dojox/mobile/Heading"
 		 data-dojo-props="fixed: 'top', label: 'Recent Uploads tagged famous and bridge'" class="troncatedText">
@@ -88,11 +109,11 @@
 
 <!-- Settings view -->
 <div id="settings"
-	 data-dojo-type="dojox/mobile/ScrollableView">
+	 data-dojo-type="flickerview/SettingsView">
 	<div data-dojo-type="dojox/mobile/Heading"
 		 data-dojo-props="fixed: 'top', label: 'Settings'">
 		  <span data-dojo-type="dojox/mobile/ToolBarButton"
-				data-dojo-props="label:'Done', moveTo:'photos', transition:'none'" style="float:right;"></span>
+				data-dojo-props="label:'Done', moveTo:'search', transition:'none'" style="float:right;"></span>
 	</div>
 	<div data-dojo-type="dojox/mobile/RoundRect">
 		<div data-dojo-type="dojox/mobile/FormLayout"
@@ -121,17 +142,20 @@
 		</div>
 	</div>
 </div>
-<!-- details view -->
+
+<!-- Details view -->
 <div id="details"
-	 data-dojo-type="dojox/mobile/ScrollableView">
+	 data-dojo-type="flickerview/DetailsView">
 	<div data-dojo-type="dojox/mobile/Heading"
 		 data-dojo-props="fixed: 'top', label: 'Golden Gate Bridge HDR'">
 		  <span data-dojo-type="dojox/mobile/ToolBarButton"
-				data-dojo-props="label:'Back', moveTo:'photos', transition:'slide', transitionDir:'-1'" style="float:left;"></span>
+				data-dojo-props="label:'Back', moveTo:'search', transition:'slide', transitionDir:'-1'" style="float:left;"></span>
+		<!-- transition is none because of https://bugs.dojotoolkit.org/ticket/17164 -->
 	</div>
 	<div data-dojo-type="dojox/mobile/RoundRect">
 		<p><a href="http://www.flickr.com/people/dewynter/">ILYA GENKIN / GENKIN.ORG</a> posted a photo:</p> <p><a href="http://www.flickr.com/photos/dewynter/9599939397/" title="The Sydney City CBD from Kirribilli, Sydney, NSW, Australia"><img src="http://farm3.staticflickr.com/2893/9599939397_4bab7a4aa8_m.jpg" width="240" height="240" alt="The Sydney City CBD from Kirribilli, Sydney, NSW, Australia" /></a></p> <p><b>The Sydney City CBD from Kirribilli, Sydney, NSW, Australia</b><br /> <br /> More images: <a href="http://www.genkin.org/cgi-bin/browse.pl/australia/sydney/city/" rel="nofollow">Sydney City Stock Images</a> | <a href="http://www.genkin.org/gallery/australia/sydney/" rel="nofollow">Sydney Stock Images</a> | <a href="http://www.genkin.org/gallery/australia/" rel="nofollow">Australia Stock Images</a> | <a href="http://www.genkin.org" rel="nofollow">Travel Stock Photography</a><br /> <br /> To receive latest updates simply <a href="http://twitter.com/igenkin" rel="nofollow">follow me on Twitter</a>.<br /> <br /> © Ilya Genkin<br /> <a href="http://www.genkin.org" rel="nofollow">Fine Art Landscape, Travel and Stock Photography</a><br /> <a href="http://www.genkin.org/blog" rel="nofollow">Travel and Landscape Photography Blog</a><br /> <br /> Note: <i>My images are posted here for your personal<br /> viewing pleasure only. All Rights are Reserved. Please<br /> contact me through </i><a href="http://www.genkin.org" rel="nofollow">my web site</a><i> if you are interested<br /> in using this image for an reason, or if you would like to <br /> purchase a photographic print.<br /> Thank you!</i></p>
 	</div>
 </div>
+
 </body>
 </html>
