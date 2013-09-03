@@ -96,35 +96,30 @@
 				data-dojo-props="label:'Done', moveTo:'photos', transition:'none'" style="float:right;"></span>
 	</div>
 	<div data-dojo-type="dojox/mobile/RoundRect">
-		<table style="margin: 0 auto;" cellspacing="10">
-			<tr>
-				<td>
-					<label for="tag">Tags</label>
-				</td>
-				<td>
-					<input type="text" id="tag" name="tag" data-dojo-type="dojox/mobile/TextBox"
-						   data-dojo-props="value:'famous bridge'" style="float:right;text-overflow: ellipsis;" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="mode">Selection</label>
-				</td>
-				<td>
-					<input type="checkbox" id="mode" name="mode" data-dojo-type="dojox/mobile/Switch"
-						   value="on" leftLabel="All" rightLabel="Any" style="float:right;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="lang">Feed language</label>
-				</td>
-				<td>
-					<input  id="lang" name="lang"  data-dojo-type="dojox/mobile/ComboBox"
-							data-dojo-props="value:'English', list:'languages'" style="float:right;"/>
-				</td>
-			</tr>
-		</table>
+		<div data-dojo-type="dojox/mobile/FormLayout"
+			 data-dojo-props="columns:'two'">
+			<div>
+				<label for="tag">Tags</label>
+				<fieldset>
+					<input type="text" id="tag" data-dojo-type="dojox/mobile/TextBox"
+						   data-dojo-props="value:'famous bridge'" style="text-overflow: ellipsis;" >
+				</fieldset>
+			</div>
+			<div>
+				<label for="mode">Selection</label>
+				<fieldset>
+					<input type="checkbox" id="mode" data-dojo-type="dojox/mobile/Switch"
+						   value="on" leftLabel="All" rightLabel="Any">
+				</fieldset>
+			</div>
+			<div>
+				<label for="lang">Feed language</label>
+				<fieldset>
+					<input  id="lang" data-dojo-type="dojox/mobile/ComboBox"
+							data-dojo-props="value:'English', list:'languages'">
+				</fieldset>
+			</div>
+		</div>
 	</div>
 </div>
 <!-- details view -->
