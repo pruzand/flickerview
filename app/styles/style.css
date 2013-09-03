@@ -54,3 +54,11 @@ html, body {
     white-space: nowrap;
     overflow: hidden;
 }
+
+.languageFeedRadio {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: moz-none;
+    -ms-user-select: none;
+    user-select: none;
+}

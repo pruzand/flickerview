@@ -26,7 +26,6 @@
 		};
 	</script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojo/dojo.js"></script>
-
 	<script>
 		// Load the widget parser and mobile base
 		require([
@@ -44,7 +43,7 @@
 			"dojox/mobile/TextBox",
 			"dojox/mobile/Switch",
 			"dijit/form/DataList",
-			"dojox/mobile/ComboBox",
+			"dojox/mobile/RadioButton",
 			"dojox/mobile/Button",
 			"dijit/form/Form",
 			"dojo/on",
@@ -57,18 +56,6 @@
 
 </head>
 <body style="visibility:hidden;">
-<datalist>
-	<select data-dojo-type="dijit/form/DataList" data-dojo-props='id:"languages"'>
-		<option selected value="en-us">English</option>
-		<option value="fr-fr">French</option>
-		<option value="de-de">German</option>
-		<option value="it-it">Italian</option>
-		<option value="ko-kr">Korean</option>
-		<option value="pt-br">Portuguese (Brazilian)</option>
-		<option value="es-us">Spanish</option>
-		<option value="zh-hk">Traditional Chinese (Hong Kong)</option>
-	</select>
-</datalist>
 
 <!-- Search view -->
 <div id="search"
@@ -79,7 +66,7 @@
 				<span data-dojo-type="dojox/mobile/ToolBarButton"
 					  data-dojo-props="icon: 'images/settings.png', moveTo:'settings', transitionDir:'-1', transition:'none'"
 					  style="float:left;"></span>
-				<span data-dojo-type="dojox/mobile/ToolBarButton"
+				<span id="refreshButton" data-dojo-type="dojox/mobile/ToolBarButton"
 					  data-dojo-props="icon: 'images/refresh.png'"
 					  style="float:right;"></span>
 	</div>
@@ -133,10 +120,24 @@
 				</fieldset>
 			</div>
 			<div>
-				<label for="lang">Feed language</label>
+				<label>Feed language</label>
 				<fieldset>
-					<input  id="lang" data-dojo-type="dojox/mobile/ComboBox"
-							data-dojo-props="value:'English', list:'languages'">
+					<input type="radio" id="rb1" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="en-us" checked><label for="rb1">English</label><br />
+					<input type="radio" id="rb2" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="fr-fr"><label for="rb2">French</label><br />
+					<input type="radio" id="rb3" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="de-de"><label for="rb3">German</label><br />
+					<input type="radio" id="rb4" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="it-it"><label for="rb4">Italian</label><br />
+					<input type="radio" id="rb5" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="ko-kr"><label for="rb5">Korean</label><br />
+					<input type="radio" id="rb6" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="pt-br"><label for="rb6">Portuguese (Br)</label><br />
+					<input type="radio" id="rb7" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="es-us"><label for="rb7">Spanish</label><br />
+					<input type="radio" id="rb8" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="zh-hk"><label for="rb8">Traditional Chinese (HK)</label><br />
 				</fieldset>
 			</div>
 		</div>
