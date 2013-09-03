@@ -57,17 +57,15 @@
 		 data-dojo-props="fixed: 'top', label: 'Recent Uploads tagged famous and bridge'" class="troncatedText">
 				<span data-dojo-type="dojox/mobile/ToolBarButton"
 					  data-dojo-props="icon: 'images/settings.png', moveTo:'settings', transitionDir:'-1', transition:'none'"
-					  style="float:left;"
-					  class="listCtrl"></span>
+					  style="float:left;"></span>
 				<span data-dojo-type="dojox/mobile/ToolBarButton"
 					  data-dojo-props="icon: 'images/refresh.png'"
-					  style="float:right;"
-					  class="listCtrl"></span>
+					  style="float:right;"></span>
 	</div>
 	<div data-dojo-type="dojox/mobile/EdgeToEdgeList">
-		<div data-dojo-type="dojox/mobile/ListItem" class="photoListItem" data-dojo-props="moveTo:'details', transition:'slide'">
+		<div data-dojo-type="dojox/mobile/ListItem"
+			 data-dojo-props="moveTo:'details', transition:'slide'" class="photoListItem">
 			<img src="images/mock/dummy_ggb.jpg" width="80px" height="80px" alt="Title" style="float:left;"/>
-
 			<div class="photoSummary">
 				<div class="photoTitle">Golden Gate Bridge HDR</div>
 				<div class="publishedTime" data-dojo-time="2013-12-13">2013-06-20T23:34:21Z</div>
@@ -75,7 +73,8 @@
 			</div>
 			<div class="summaryClear"></div>
 		</div>
-		<div data-dojo-type="dojox/mobile/ListItem" class="photoListItem" data-dojo-props="moveTo:'details', transition:'slide'">
+		<div data-dojo-type="dojox/mobile/ListItem"
+			 data-dojo-props="moveTo:'details', transition:'slide'" class="photoListItem">
 			<img src="images/mock/dummy_pda.jpg" width="80px" height="80px" alt="Title" style="float:left;"/>
 			<div class="photoSummary">
 				<div class="photoTitle">Singapore_30.jpg</div>
@@ -102,7 +101,7 @@
 				<label for="tag">Tags</label>
 				<fieldset>
 					<input type="text" id="tag" data-dojo-type="dojox/mobile/TextBox"
-						   data-dojo-props="value:'famous bridge'" style="text-overflow: ellipsis;" >
+						   data-dojo-props="value:'famous bridge'">
 				</fieldset>
 			</div>
 			<div>
