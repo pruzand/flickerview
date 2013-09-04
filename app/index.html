@@ -11,7 +11,8 @@
 	<title>Dojo Flicker View</title>
 	<link rel="stylesheet" type="text/css" href="styles/style.css">
 
-	<script type="text/javascript" src="../../dojox/mobile/deviceTheme.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojox/mobile/deviceTheme.js"></script>
+
 	<script type="text/javascript">
 		dojoConfig = {
 			async: true,
@@ -19,6 +20,7 @@
 			baseUrl: './',
 			parseOnLoad: false,
 			mblAlwaysHideAddressBar: true,
+			extraLocale: [ "en-us", "fr-fr", "de-de", "it-it","ko-kr","pt-br","es-us","zh-hk"],
 			packages: [{
 				name: "flickerview",
 				location: "js/flickerview"
@@ -30,6 +32,7 @@
 		// Load the widget parser and mobile base
 		require([
 			"dojox/mobile/parser",
+			"dijit/registry",
 			"flickerview/SearchView",
 			"flickerview/SettingsView",
 			"flickerview/DetailsView",
@@ -48,9 +51,17 @@
 			"dijit/form/Form",
 			"dojo/on",
 			"dojo/domReady!"
-		], function (parser) {
+		], function (parser, registry) {
+			// default value
+			flickerview.QUERY = {
+				tags: "famous,bridges",
+				tagmode: "all",
+				format: "json",
+				lang: "en-us"
+			};
 			// Parse the page for widgets
 			parser.parse();
+			registry.byId("search").refresh();
 		});
 	</script>
 
@@ -61,8 +72,10 @@
 <div id="search"
 	 data-dojo-type="flickerview/SearchView"
 	 data-dojo-props="selected: true">
-	<div data-dojo-type="dojox/mobile/Heading"
-		 data-dojo-props="fixed: 'top', label: 'Recent Uploads tagged famous and bridge'" class="troncatedText">
+	<div id="searchHeading"
+		 data-dojo-type="dojox/mobile/Heading"
+		 data-dojo-props="fixed: 'top', label: 'Recent Uploads tagged famous and bridge'"
+		 class="troncatedText">
 				<span data-dojo-type="dojox/mobile/ToolBarButton"
 					  data-dojo-props="icon: 'images/settings.png', moveTo:'settings', transitionDir:'-1', transition:'none'"
 					  style="float:left;"></span>
@@ -70,7 +83,8 @@
 					  data-dojo-props="icon: 'images/refresh.png'"
 					  style="float:right;"></span>
 	</div>
-	<div data-dojo-type="dojox/mobile/EdgeToEdgeList">
+	<div id="searchList"
+		 data-dojo-type="dojox/mobile/EdgeToEdgeList">
 		<div data-dojo-type="dojox/mobile/ListItem"
 			 data-dojo-props="moveTo:'details', transition:'slide'" class="photoListItem">
 			<img src="images/mock/dummy_ggb.jpg" width="80px" height="80px" alt="Title" style="float:left;"/>
@@ -100,44 +114,45 @@
 	<div data-dojo-type="dojox/mobile/Heading"
 		 data-dojo-props="fixed: 'top', label: 'Settings'">
 		  <span data-dojo-type="dojox/mobile/ToolBarButton"
+				id="doneButton"
 				data-dojo-props="label:'Done', moveTo:'search', transition:'none'" style="float:right;"></span>
 	</div>
 	<div data-dojo-type="dojox/mobile/RoundRect">
 		<div data-dojo-type="dojox/mobile/FormLayout"
 			 data-dojo-props="columns:'two'">
 			<div>
-				<label for="tag">Tags</label>
+				<label for="tags">Tags</label>
 				<fieldset>
-					<input type="text" id="tag" data-dojo-type="dojox/mobile/TextBox"
-						   data-dojo-props="value:'famous bridge'">
+					<input type="text" id="tags" data-dojo-type="dojox/mobile/TextBox"
+						   data-dojo-props="value:''">
 				</fieldset>
 			</div>
 			<div>
-				<label for="mode">Selection</label>
+				<label for="select">Selection</label>
 				<fieldset>
-					<input type="checkbox" id="mode" data-dojo-type="dojox/mobile/Switch"
+					<input type="checkbox" id="select" data-dojo-type="dojox/mobile/Switch"
 						   value="on" leftLabel="All" rightLabel="Any">
 				</fieldset>
 			</div>
 			<div>
 				<label>Feed language</label>
 				<fieldset>
-					<input type="radio" id="rb1" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
-						   name="feedLanguage" value="en-us" checked><label for="rb1">English</label><br />
-					<input type="radio" id="rb2" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
-						   name="feedLanguage" value="fr-fr"><label for="rb2">French</label><br />
-					<input type="radio" id="rb3" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
-						   name="feedLanguage" value="de-de"><label for="rb3">German</label><br />
-					<input type="radio" id="rb4" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
-						   name="feedLanguage" value="it-it"><label for="rb4">Italian</label><br />
-					<input type="radio" id="rb5" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
-						   name="feedLanguage" value="ko-kr"><label for="rb5">Korean</label><br />
-					<input type="radio" id="rb6" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
-						   name="feedLanguage" value="pt-br"><label for="rb6">Portuguese (Br)</label><br />
-					<input type="radio" id="rb7" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
-						   name="feedLanguage" value="es-us"><label for="rb7">Spanish</label><br />
-					<input type="radio" id="rb8" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
-						   name="feedLanguage" value="zh-hk"><label for="rb8">Traditional Chinese (HK)</label><br />
+					<input type="radio" id="en-us" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="en-us" checked><label for="en-us">English</label><br />
+					<input type="radio" id="fr-fr" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="fr-fr"><label for="fr-fr">French</label><br />
+					<input type="radio" id="de-de" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="de-de"><label for="de-de">German</label><br />
+					<input type="radio" id="it-it" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="it-it"><label for="it-it">Italian</label><br />
+					<input type="radio" id="ko-kr" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="ko-kr"><label for="ko-kr">Korean</label><br />
+					<input type="radio" id="pt-br" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="pt-br"><label for="pt-br">Portuguese (Br)</label><br />
+					<input type="radio" id="es-us" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="es-us"><label for="es-us">Spanish</label><br />
+					<input type="radio" id="zh-hk" data-dojo-type="dojox/mobile/RadioButton" class="languageFeedRadio"
+						   name="feedLanguage" value="zh-hk"><label for="zh-hk">Traditional Chinese (HK)</label><br />
 				</fieldset>
 			</div>
 		</div>
@@ -147,13 +162,15 @@
 <!-- Details view -->
 <div id="details"
 	 data-dojo-type="flickerview/DetailsView">
-	<div data-dojo-type="dojox/mobile/Heading"
+	<div id="detailHeading"
+			data-dojo-type="dojox/mobile/Heading"
 		 data-dojo-props="fixed: 'top', label: 'Golden Gate Bridge HDR'">
 		  <span data-dojo-type="dojox/mobile/ToolBarButton"
 				data-dojo-props="label:'Back', moveTo:'search', transition:'slide', transitionDir:'-1'" style="float:left;"></span>
 		<!-- transition is none because of https://bugs.dojotoolkit.org/ticket/17164 -->
 	</div>
-	<div data-dojo-type="dojox/mobile/RoundRect">
+	<div id="detailContainer"
+		 data-dojo-type="dojox/mobile/RoundRect">
 		<p><a href="http://www.flickr.com/people/dewynter/">ILYA GENKIN / GENKIN.ORG</a> posted a photo:</p> <p><a href="http://www.flickr.com/photos/dewynter/9599939397/" title="The Sydney City CBD from Kirribilli, Sydney, NSW, Australia"><img src="http://farm3.staticflickr.com/2893/9599939397_4bab7a4aa8_m.jpg" width="240" height="240" alt="The Sydney City CBD from Kirribilli, Sydney, NSW, Australia" /></a></p> <p><b>The Sydney City CBD from Kirribilli, Sydney, NSW, Australia</b><br /> <br /> More images: <a href="http://www.genkin.org/cgi-bin/browse.pl/australia/sydney/city/" rel="nofollow">Sydney City Stock Images</a> | <a href="http://www.genkin.org/gallery/australia/sydney/" rel="nofollow">Sydney Stock Images</a> | <a href="http://www.genkin.org/gallery/australia/" rel="nofollow">Australia Stock Images</a> | <a href="http://www.genkin.org" rel="nofollow">Travel Stock Photography</a><br /> <br /> To receive latest updates simply <a href="http://twitter.com/igenkin" rel="nofollow">follow me on Twitter</a>.<br /> <br /> © Ilya Genkin<br /> <a href="http://www.genkin.org" rel="nofollow">Fine Art Landscape, Travel and Stock Photography</a><br /> <a href="http://www.genkin.org/blog" rel="nofollow">Travel and Landscape Photography Blog</a><br /> <br /> Note: <i>My images are posted here for your personal<br /> viewing pleasure only. All Rights are Reserved. Please<br /> contact me through </i><a href="http://www.genkin.org" rel="nofollow">my web site</a><i> if you are interested<br /> in using this image for an reason, or if you would like to <br /> purchase a photographic print.<br /> Thank you!</i></p>
 	</div>
 </div>
