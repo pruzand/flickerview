@@ -3,7 +3,7 @@ define([
 	"dojox/mobile/ScrollableView"
 ], function(declare, ScrollableView){
 
-	return declare("flickerview.DetailsView", [ScrollableView], {
+	return declare([ScrollableView], {
 		/**
 		 *
 		 */

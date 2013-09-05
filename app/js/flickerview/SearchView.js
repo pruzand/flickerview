@@ -3,13 +3,14 @@ define([
 	"dijit/registry",
 	"dojo/on",
 	"dojo/_base/lang",
+	"dojo/_base/array",
 	"dojo/date/locale",
 	"dojo/dom-class",
 	"dojox/mobile/ScrollableView",
 	"dojox/mobile/ProgressIndicator",
 	"dojo/request/script",
 	"dojox/mobile/ListItem"
-], function(declare, registry, on, lang, locale, domClass, ScrollableView, ProgressIndicator, scriptRequest){
+], function(declare, registry, on, lang, array, locale, domClass, ScrollableView, ProgressIndicator, scriptRequest, ListItem){
 
 	return declare("flickerview.SearchView", [ScrollableView], {
 		refreshButton: null,
@@ -73,9 +74,9 @@ define([
 			this.searchList.destroyDescendants();
 			this.searchHeading.set('label',result.title);
 
-			dojo.forEach(result.items, lang.hitch(this, function (resultItem) {
+			array.forEach(result.items, lang.hitch(this, function (resultItem) {
 				// Create a new list item
-				var listItem = new dojox.mobile.ListItem({}).placeAt(this.searchList, "last");
+				var listItem = new ListItem({}).placeAt(this.searchList, "last");
 				listItem.set("transition","slide");
 				listItem.set("moveTo","#");
 				listItem.onClick = lang.hitch(this, function(){

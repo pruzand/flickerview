@@ -3,11 +3,10 @@ define([
 	"dijit/registry",
 	"dojo/on",
 	"dojo/_base/lang",
-	"dojox/mobile/ScrollableView",
-	"dojo/query"
+	"dojox/mobile/ScrollableView"
 ], function(declare, registry, on, lang, ScrollableView){
 
-	return declare("flickerview.SettingsView", [ScrollableView], {
+	return declare([ScrollableView], {
 
 		tagInput: '',
 		selectSwitch: '',
