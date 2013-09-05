@@ -41,6 +41,7 @@ define([
 
 		// refresh view with content from Flicker
 		refresh: function() {
+			this.scrollTo({x:0,y:0});
 			// remove all list items
 			this.searchList.destroyDescendants();
 			// start progress indicator
